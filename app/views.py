@@ -83,10 +83,12 @@ def home(request):
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--start-maximized')
         chrome_options.add_argument('--disable-setuid-sandbox')
-        chrome_options.add_argument('--enable-features=NetworkService,NetworkServiceInProcess')
-        driver = webdriver.Chrome(
-            executable_path=DRIVER_PATH, chrome_options=chrome_options)
-        driver.maximize_window()
+        chrome_options.add_argument("--remote-debugging-port=9222")
+        from webdriver_manager.chrome import ChromeDriverManager 
+        driver =webdriver.Chrome(ChromeDriverManager().install(),chrome_options=chrome_options)
+        # driver = webdriver.Chrome(
+        #     executable_path=DRIVER_PATH, chrome_options=chrome_options)
+    
         username = "amrit0021"
         password = "Amrit.007"
         try:
@@ -109,7 +111,7 @@ def home(request):
                 (By.XPATH, "//button[@class='modal-close']"))).click()
         except Exception as e:
             print(e)
-
+        # driver.close()
         for link in all_links:
             driver.get(link)
             sleep(1)
