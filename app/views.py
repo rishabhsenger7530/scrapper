@@ -57,8 +57,12 @@ def home(request):
     if request.method == "POST":
 
         DRIVER_PATH = './chromedriver'
-        
-        driver = webdriver.Chrome(executable_path=DRIVER_PATH)
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--disable-gpu")
+        driver = webdriver.Chrome(options=chrome_options)
+        # driver = webdriver.Chrome(executable_path=DRIVER_PATH)
         username = "amrit0021"
         password = "Amrit.007"
         try:
