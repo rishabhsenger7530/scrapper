@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-l3e%)vy#*lznzvrr@4qeia30l0gx=1nij(+rxmn1^bqy@^bo4(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['pokeratlasscrapper.herokuapp.com']
 
 
 # Application definition
