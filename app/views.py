@@ -66,7 +66,7 @@ def home(request):
         chrome_options.add_argument("--headless")
         chrome_options.add_argument("--disable-dev-shm-usage")
         chrome_options.add_argument("--no-sandbox")
-        driver = webdriver.Chrome(executable_path=DRIVER_PATH)
+        driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"))
         #driver = webdriver.Chrome(executable_path=DRIVER_PATH)
         username = "amrit0021"
         password = "Amrit.007"
@@ -87,14 +87,19 @@ def home(request):
         driver.find_element(By.ID,"user_password").send_keys(password)
         # click login button
         count = 0
-        try:
-            WebDriverWait(driver, 5).until(EC.element_to_be_clickable(
-                (By.CSS_SELECTOR, "input[name='commit'][value='Sign In']"))).click()
-            WebDriverWait(driver, 5).until(EC.element_to_be_clickable(
-                (By.XPATH, "//button[@class='modal-close']"))).click()
-        except Exception as e:
-            print(e)
-        breakpoint()
+        # try:
+        # driver.execute_script("arguments[0].click();", WebDriverWait(driver, 2).until(
+        #     EC.element_to_be_clickable((By.CSS_SELECTOR, "input[name='commit']"))))
+       
+        # WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//input[@value='Sign In']"))).click()
+
+        WebDriverWait(driver, 5).until(EC.element_to_be_clickable(
+            (By.CSS_SELECTOR, "input[type='submit'][value='Sign In']"))).click()
+        WebDriverWait(driver, 5).until(EC.element_to_be_clickable(
+            (By.XPATH, "//button[@class='modal-close']"))).click()
+        # except Exception as e:
+        #     print(e)
+        
         for link in all_links:
             driver.get(link)
             sleep(1)
@@ -116,7 +121,7 @@ def home(request):
                     'span', {'class': "current-name"}).text
                 table_content = section_content.find(
                     'table', {'class': 'live-info'})
-
+                breakpoint()
                 for tr in table_content.find_all('tr', {'class': 'live-cash-game'}):
                     td_list = []
                     for td in tr.find_all('td'):
