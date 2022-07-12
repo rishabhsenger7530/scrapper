@@ -138,7 +138,7 @@ def home(request):
 
 
 
-# def get_all_files(request):
-#     path = "static/csv/"
-#     dir_list = os.listdir(path)
-#     return render(request, 'all_files.html', {'files': dir_list})
+def get_all_files(request):
+    path = "static/csv/"
+    dir_list = os.listdir(path)
+    return render(request, 'all_files.html', {'files': dir_list})
