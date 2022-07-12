@@ -53,28 +53,10 @@ def generateprofile_csv(filename):
         csvwriter.writerows(data_list)
 
 
-# def home(request):
-#     from selenium import webdriver
-#     import os
-
-#     chrome_options = webdriver.ChromeOptions()
-#     chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-#     chrome_options.add_argument("--headless")
-#     chrome_options.add_argument("--disable-dev-shm-usage")
-#     chrome_options.add_argument("--no-sandbox")
-#     driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
-#     driver.get("https://medium.com")
-#     print(driver.page_source)
-#     print("Finished!")
-#     return render(request, 'index.html')
-
 def home(request):
     if request.method == "POST":
 
         DRIVER_PATH = './chromedriver'
-        from selenium import webdriver
-        import os
-
         chrome_options = webdriver.ChromeOptions()
         chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
         chrome_options.add_argument("--headless")
@@ -84,15 +66,15 @@ def home(request):
 
         username = "amrit0021"
         password = "Amrit.007"
-        # try:
-        driver.get("https://pokeratlas.com/login")
-        driver.implicitly_wait(1)
-        # except Exception as e:
-        #     print(e)
+        try:
+            driver.get("https://pokeratlas.com/login")
+            driver.implicitly_wait(1)
+        except Exception as e:
+            print(e)
 
-        driver.find_element_by_id("user_username").send_keys(username)
+        driver.find_element("id", "user_username").send_keys(username)
         # find password input field and insert password as well
-        driver.find_element_by_id("user_password").send_keys(password)
+        driver.find_element("id","user_password").send_keys(password)
         # click login button
         count = 0
         try:
