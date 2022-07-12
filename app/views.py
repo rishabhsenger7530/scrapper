@@ -6,6 +6,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+
 from bs4 import BeautifulSoup
 from time import sleep
 import csv
@@ -57,24 +58,33 @@ def home(request):
     if request.method == "POST":
 
         DRIVER_PATH = './chromedriver'
+        user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36'
+        
         chrome_options = webdriver.ChromeOptions()
+        chrome_options.add_argument(f'user-agent={user_agent}')
         chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
         chrome_options.add_argument("--headless")
         chrome_options.add_argument("--disable-dev-shm-usage")
         chrome_options.add_argument("--no-sandbox")
-        #driver = webdriver.Chrome(executable_path=DRIVER_PATH), chrome_options=chrome_options)
         driver = webdriver.Chrome(executable_path=DRIVER_PATH)
+        #driver = webdriver.Chrome(executable_path=DRIVER_PATH)
         username = "amrit0021"
         password = "Amrit.007"
-        try:
-            driver.get("https://pokeratlas.com/login")
-            driver.implicitly_wait(1)
-        except Exception as e:
-            print(e)
-
-        driver.find_element("id", "user_username").send_keys(username)
-        # find password input field and insert password as well
-        driver.find_element("id","user_password").send_keys(password)
+        # try:
+        driver.get("https://pokeratlas.com/login")
+        driver.implicitly_wait(5)
+        # except Exception as e:
+        #     print(e)
+        # breakpoint()
+        
+        driver.find_element(By.ID,'user_username').send_keys(username)
+        # driver.find_element(By.XPATH, '//input[@id="user_username"]').send_keys(username)
+        # NEWS_OPTION = (By.ID, 'user_username')
+        # myDynamicElement = driver.find_element(*NEWS_OPTION)
+        # # username_input = driver.find_elements("By.XPATH","//*[@id='user_username']")[1]
+        # # username_input.send_keys(username)
+        # # find password input field and insert password as well
+        driver.find_element(By.ID,"user_password").send_keys(password)
         # click login button
         count = 0
         try:
@@ -84,7 +94,7 @@ def home(request):
                 (By.XPATH, "//button[@class='modal-close']"))).click()
         except Exception as e:
             print(e)
-
+        breakpoint()
         for link in all_links:
             driver.get(link)
             sleep(1)
