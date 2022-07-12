@@ -84,11 +84,11 @@ def home(request):
 
         username = "amrit0021"
         password = "Amrit.007"
-        try:
-            driver.get("https://pokeratlas.com/login")
-            driver.implicitly_wait(1)
-        except Exception as e:
-            print(e)
+        # try:
+        driver.get("https://pokeratlas.com/login")
+        driver.implicitly_wait(1)
+        # except Exception as e:
+        #     print(e)
 
         driver.find_element_by_id("user_username").send_keys(username)
         # find password input field and insert password as well
