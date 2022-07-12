@@ -6,7 +6,6 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-
 from bs4 import BeautifulSoup
 from time import sleep
 import csv
@@ -18,7 +17,7 @@ options = Options()
 options.headless = True
 
 all_links = ['https://pokeratlas.com/poker-room/the-lodge-poker-club-round-rock/cash-games',
-            #  'https://pokeratlas.com/poker-room/shuffle-512-austin/cash-games',
+             #  'https://pokeratlas.com/poker-room/shuffle-512-austin/cash-games',
              #  'https://pokeratlas.com/poker-room/52-social-club-round-rock/cash-games',
              #  'https://pokeratlas.com/poker-room/texas-card-house-dallas/cash-games',
              #  'https://pokeratlas.com/poker-room/texas-card-house-austin/cash-games',
@@ -54,52 +53,63 @@ def generateprofile_csv(filename):
         csvwriter.writerows(data_list)
 
 
+# def home(request):
+#     from selenium import webdriver
+#     import os
+
+#     chrome_options = webdriver.ChromeOptions()
+#     chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+#     chrome_options.add_argument("--headless")
+#     chrome_options.add_argument("--disable-dev-shm-usage")
+#     chrome_options.add_argument("--no-sandbox")
+#     driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+#     driver.get("https://medium.com")
+#     print(driver.page_source)
+#     print("Finished!")
+#     return render(request, 'index.html')
+
 def home(request):
     if request.method == "POST":
 
         DRIVER_PATH = './chromedriver'
-        user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36'
-        
+        from selenium import webdriver
+        import os
+        from selenium.webdriver import ActionChains
         chrome_options = webdriver.ChromeOptions()
-        # chrome_options.add_argument(f'user-agent={user_agent}')
-        # chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-        # chrome_options.add_argument("--headless")
-        # chrome_options.add_argument("--disable-dev-shm-usage")
-        # chrome_options.add_argument("--no-sandbox")
-        driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"))
-        #driver = webdriver.Chrome(executable_path=DRIVER_PATH)
+
+        chrome_options.add_argument('--disable-gpu')
+        chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--window-size=1920,1080')
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--start-maximized')
+        chrome_options.add_argument('--disable-setuid-sandbox')
+
+        driver = webdriver.Chrome(
+            executable_path=DRIVER_PATH, chrome_options=chrome_options)
+        driver.maximize_window()
         username = "amrit0021"
         password = "Amrit.007"
-        # try:
-        driver.get("https://pokeratlas.com/login")
-        driver.implicitly_wait(5)
-        # except Exception as e:
-        #     print(e)
-        # breakpoint()
-        
-        driver.find_element(By.ID,'user_username').send_keys(username)
-        # driver.find_element(By.XPATH, '//input[@id="user_username"]').send_keys(username)
-        # NEWS_OPTION = (By.ID, 'user_username')
-        # myDynamicElement = driver.find_element(*NEWS_OPTION)
-        # # username_input = driver.find_elements("By.XPATH","//*[@id='user_username']")[1]
-        # # username_input.send_keys(username)
-        # # find password input field and insert password as well
-        driver.find_element(By.ID,"user_password").send_keys(password)
+        try:
+            driver.get("https://pokeratlas.com/login")
+            driver.implicitly_wait(1)
+        except Exception as e:
+            print(e)
+
+        driver.find_element(By.ID, 'user_username').send_keys(username)
+        # find password input field and insert password as well
+        driver.find_element(By.ID, "user_password").send_keys(password)
         # click login button
         count = 0
-        # try:
-        # driver.execute_script("arguments[0].click();", WebDriverWait(driver, 2).until(
-        #     EC.element_to_be_clickable((By.CSS_SELECTOR, "input[name='commit']"))))
-       
-        # WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//input[@value='Sign In']"))).click()
+        try:
 
-        WebDriverWait(driver, 5).until(EC.element_to_be_clickable(
-            (By.CSS_SELECTOR, "input[type='submit'][value='Sign In']"))).click()
-        WebDriverWait(driver, 5).until(EC.element_to_be_clickable(
-            (By.XPATH, "//button[@class='modal-close']"))).click()
-        # except Exception as e:
-        #     print(e)
-        
+            WebDriverWait(driver, 5).until(EC.element_to_be_clickable(
+                (By.CSS_SELECTOR, "input[name='commit'][value='Sign In']"))).click()
+
+            WebDriverWait(driver, 5).until(EC.element_to_be_clickable(
+                (By.XPATH, "//button[@class='modal-close']"))).click()
+        except Exception as e:
+            print(e)
+
         for link in all_links:
             driver.get(link)
             sleep(1)
@@ -121,7 +131,7 @@ def home(request):
                     'span', {'class': "current-name"}).text
                 table_content = section_content.find(
                     'table', {'class': 'live-info'})
-                breakpoint()
+
                 for tr in table_content.find_all('tr', {'class': 'live-cash-game'}):
                     td_list = []
                     for td in tr.find_all('td'):
@@ -137,7 +147,6 @@ def home(request):
         generateprofile_csv(dir_list+".csv")
 
     return render(request, 'index.html')
-
 
 
 def get_all_files(request):
