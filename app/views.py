@@ -70,8 +70,10 @@ def home(request):
         chrome_options.add_argument('--disable-setuid-sandbox')
         chrome_options.add_argument("--remote-debugging-port=9222")
         from webdriver_manager.chrome import ChromeDriverManager
-        driver = webdriver.Chrome(
-            ChromeDriverManager().install(), chrome_options=chrome_options)
+        driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"),
+                                  chrome_options=chrome_options)
+        # driver = webdriver.Chrome(
+        #     ChromeDriverManager().install(), chrome_options=chrome_options)
         # driver = webdriver.Chrome(
         #     executable_path=DRIVER_PATH, chrome_options=chrome_options)
 
