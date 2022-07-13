@@ -62,12 +62,12 @@ def home(request):
         from selenium.webdriver import ActionChains
         chrome_options = webdriver.ChromeOptions()
         chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-        chrome_options.add_argument('--disable-gpu')
+        # chrome_options.add_argument('--disable-gpu')
         chrome_options.add_argument('--headless')
         chrome_options.add_argument('--window-size=1920,1080')
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--start-maximized')
-        chrome_options.add_argument('--disable-setuid-sandbox')
+        # chrome_options.add_argument('--disable-setuid-sandbox')
         chrome_options.add_argument("--remote-debugging-port=9222")
         from webdriver_manager.chrome import ChromeDriverManager
         driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"),
