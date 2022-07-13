@@ -1,7 +1,6 @@
 
 from django.shortcuts import render, render
 # Create your views here.
-from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -9,7 +8,6 @@ from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 from time import sleep
 import csv
-from datetime import datetime
 import os
 
 
@@ -17,24 +15,24 @@ options = Options()
 options.headless = True
 
 all_links = ['https://pokeratlas.com/poker-room/the-lodge-poker-club-round-rock/cash-games',
-             #  'https://pokeratlas.com/poker-room/shuffle-512-austin/cash-games',
-             #  'https://pokeratlas.com/poker-room/52-social-club-round-rock/cash-games',
-             #  'https://pokeratlas.com/poker-room/texas-card-house-dallas/cash-games',
-             #  'https://pokeratlas.com/poker-room/texas-card-house-austin/cash-games',
-             #  'https://pokeratlas.com/poker-room/bullets-card-club-austin/cash-games',
-             #  'https://pokeratlas.com/poker-room/georgetown-poker-club/cash-games',
-             #  'https://pokeratlas.com/poker-room/red-star-social-austin/cash-games',
-             #  'https://pokeratlas.com/poker-room/the-oaks-poker-club-austin/cash-games',
-             #  'https://pokeratlas.com/poker-room/101-poker-club-richmond-houston/cash-games',
-             #  'https://pokeratlas.com/poker-room/legends-poker-room-houston/cash-games',
-             #  'https://pokeratlas.com/poker-room/poker-house-of-dallas/cash-games',
-             #  'https://pokeratlas.com/poker-room/prime-social-houston/cash-games',
-             #  'https://pokeratlas.com/poker-room/rounders-san-antonio/cash-games',
-             #  'https://pokeratlas.com/poker-room/sa-card-house-san-antonio/cash-games',
-             #  'https://pokeratlas.com/poker-room/san-antonio-poker-palace/cash-games',
-             #  'https://pokeratlas.com/poker-room/shuffle-214-dallas/cash-games',
-             #  'https://pokeratlas.com/poker-room/spades-poker-house-webster/cash-games',
-             #  'https://pokeratlas.com/poker-room/texas-card-house-spring/cash-games'
+             'https://pokeratlas.com/poker-room/shuffle-512-austin/cash-games',
+             'https://pokeratlas.com/poker-room/52-social-club-round-rock/cash-games',
+             'https://pokeratlas.com/poker-room/texas-card-house-dallas/cash-games',
+             'https://pokeratlas.com/poker-room/texas-card-house-austin/cash-games',
+             'https://pokeratlas.com/poker-room/bullets-card-club-austin/cash-games',
+             'https://pokeratlas.com/poker-room/georgetown-poker-club/cash-games',
+             'https://pokeratlas.com/poker-room/red-star-social-austin/cash-games',
+             'https://pokeratlas.com/poker-room/the-oaks-poker-club-austin/cash-games',
+             'https://pokeratlas.com/poker-room/101-poker-club-richmond-houston/cash-games',
+             'https://pokeratlas.com/poker-room/legends-poker-room-houston/cash-games',
+             'https://pokeratlas.com/poker-room/poker-house-of-dallas/cash-games',
+             'https://pokeratlas.com/poker-room/prime-social-houston/cash-games',
+             'https://pokeratlas.com/poker-room/rounders-san-antonio/cash-games',
+             'https://pokeratlas.com/poker-room/sa-card-house-san-antonio/cash-games',
+             'https://pokeratlas.com/poker-room/san-antonio-poker-palace/cash-games',
+             'https://pokeratlas.com/poker-room/shuffle-214-dallas/cash-games',
+             'https://pokeratlas.com/poker-room/spades-poker-house-webster/cash-games',
+             'https://pokeratlas.com/poker-room/texas-card-house-spring/cash-games'
              ]
 
 
