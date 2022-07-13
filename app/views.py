@@ -16,8 +16,8 @@ options = Options()
 options.headless = True
 
 all_links = ['https://pokeratlas.com/poker-room/the-lodge-poker-club-round-rock/cash-games',
-              'https://pokeratlas.com/poker-room/shuffle-512-austin/cash-games',
-              'https://pokeratlas.com/poker-room/52-social-club-round-rock/cash-games',
+            #   'https://pokeratlas.com/poker-room/shuffle-512-austin/cash-games',
+            #   'https://pokeratlas.com/poker-room/52-social-club-round-rock/cash-games',
             #   'https://pokeratlas.com/poker-room/texas-card-house-dallas/cash-games',
             #   'https://pokeratlas.com/poker-room/texas-card-house-austin/cash-games',
             #   'https://pokeratlas.com/poker-room/bullets-card-club-austin/cash-games',
